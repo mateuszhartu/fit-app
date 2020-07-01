@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+}
+
+.Product {
+  color: #00394d;
+  &:hover {
+    text-decoration: none;
+    color: #00394d;
+  }
+}

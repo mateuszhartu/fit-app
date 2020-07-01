@@ -1,6 +1,7 @@
 .Modal {
   position: absolute;
   top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
 }
@@ -14,13 +15,14 @@
   padding: 12px;
   background-color: white;
   border: 1px solid grey;
+  border-radius: 5px;
 }
 
 .Backdrop {
   position: absolute;
   top: 0;
   z-index: 1010;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vw;
   background-color: rgba(0, 0, 0, 0.50);
 }

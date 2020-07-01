@@ -20,7 +20,7 @@ const Product: FunctionComponent<Props> = (product) => {
         <p>Proteins: {product.product.proteins} kcal</p>
       </div>
       <p>Sum: {sumCalculator(product.product)} kcal</p>
-      <button type="button" onClick={() => removeProduct(product.product.id)}>
+      <button className={`btn ${styles.RemoveBtn}`} type="button" onClick={() => removeProduct(product.product.id)}>
         X
       </button>
     </div>

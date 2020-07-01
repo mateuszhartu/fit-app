@@ -1,11 +1,9 @@
 import React from 'react';
 
-import styles from './styles.module.scss';
-
 const Diet = () => {
   return (
     <div>
-      <p>Diet</p>
+      <p>Component</p>
     </div>
   );
 };

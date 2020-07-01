@@ -1,4 +1,5 @@
 .ProductCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -7,13 +8,29 @@
   margin: 10px;
   border: 2px solid #222222;
   border-radius: 10px;
-}
-
-.ProductCard > h3 {
-  text-transform: uppercase;
-}
-
-.Macros {
-  display: flex;
-  flex-direction: row;
+  h3 {
+    text-transform: uppercase;
+  }
+  .Macros {
+    display: flex;
+    flex-direction: row;
+    p {
+      padding: 10px;
+    }
+  }
+  .RemoveBtn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    padding: 3px 0;
+    text-align: center;
+    color: #fff;
+    border-radius: 15px;
+    background-color: #222;
+    &:hover {
+      color: red;
+    }
+  }
 }
