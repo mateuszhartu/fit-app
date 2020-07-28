@@ -8,7 +8,7 @@ import useProductsLogic from './useProductsLogic';
 import styles from './styles.module.scss';
 
 const ProductsList = () => {
-  const { products } = useProductsLogic();
+  const { products, onFilterTextChange } = useProductsLogic();
 
   const productsList = (
     <div>
@@ -24,9 +24,12 @@ const ProductsList = () => {
 
   return (
     <div className={styles.container}>
-      <div className="col-md-6">{productsList}</div>
-      <div className="col-md-6">
-        <Route path="/products/:id" render={() => <ProductDescription />} />
+      <input onChange={onFilterTextChange} />
+      <div className={`row ${styles.mainContent}`}>
+        <div className="col-md-6">{productsList}</div>
+        <div className="col-md-6">
+          <Route path="/products/:id" render={() => <ProductDescription />} />
+        </div>
       </div>
     </div>
   );
