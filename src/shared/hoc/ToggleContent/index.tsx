@@ -5,7 +5,7 @@ interface ToggleProps {
   content: (hide: () => void) => ReactElement;
 }
 
-const ToggleContent = ({ toggle, content }: ToggleProps) => {
+const ToggleContent: React.FunctionComponent<ToggleProps> = ({ toggle, content }) => {
   const [isShown, setIsShown] = useState(false);
   const hide = () => setIsShown(false);
   const show = () => setIsShown(true);

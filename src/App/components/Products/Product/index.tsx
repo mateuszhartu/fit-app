@@ -13,11 +13,11 @@ const Product: FunctionComponent<Props> = (product) => {
 
   return (
     <div className={styles.ProductCard}>
-      <h3>{product.product.name}</h3>
+      <h6>{product.product.name}</h6>
       <div className={styles.Macros}>
-        <p>Carbs: {product.product.carbs} kcal</p>
-        <p>Fat: {product.product.fat} kcal</p>
-        <p>Proteins: {product.product.proteins} kcal</p>
+        <p>C: {product.product.carbs} kcal</p>
+        <p>F: {product.product.fat} kcal</p>
+        <p>P: {product.product.proteins} kcal</p>
       </div>
       <p>Sum: {sumCalculator(product.product)} kcal</p>
       <button className={`btn ${styles.RemoveBtn}`} type="button" onClick={() => removeProduct(product.product.id)}>

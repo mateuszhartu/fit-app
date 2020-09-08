@@ -1,4 +1,4 @@
-interface Products {
+export default interface Products {
   id?: string;
   name: string;
   carbs: number;
@@ -6,5 +6,3 @@ interface Products {
   proteins: number;
   kcal?: number;
 }
-
-export default Products;

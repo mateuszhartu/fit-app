@@ -7,11 +7,10 @@ interface ModalProps {
   hide: () => void;
 }
 
-const Modal = ({ children, hide }: ModalProps) => {
+const Modal: React.FunctionComponent<ModalProps> = ({ children, hide }) => {
   return (
     <div className={styles.Modal}>
-      {/* eslint-disable-next-line */} // TODO podpytać
-      <div className={styles.Backdrop} onClick={hide} role="button" />
+      <div className={styles.Backdrop} onClick={hide} role="button" aria-hidden="true" aria-label="modal backdrop" />
       <div className={styles.ModalCard}>{children}</div>
     </div>
   );

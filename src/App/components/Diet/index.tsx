@@ -1,9 +1,10 @@
 import React from 'react';
+import DailyDiet from './DailyDiet';
 
 const Diet = () => {
   return (
     <div>
-      <p>Component</p>
+      <DailyDiet />
     </div>
   );
 };

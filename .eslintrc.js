@@ -38,5 +38,7 @@ module.exports = {
                 "depth": 25
             }
         ],
+        "no-restricted-syntax": ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"],
+        "no-param-reassign": 0,
     }
 };

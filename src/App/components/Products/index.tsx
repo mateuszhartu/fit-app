@@ -1,22 +1,30 @@
-import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import React, {FunctionComponent} from 'react';
 import Product from 'App/components/Products/Product';
 import Products from 'shared/interfaces/Products.inteface';
 import ProductDescription from 'App/components/Products/Product/ProductDescription';
+import Drawer from 'shared/hoc/Drawer';
 import useProductsLogic from './useProductsLogic';
 
 import styles from './styles.module.scss';
 
-const ProductsList = () => {
-  const { products, onFilterTextChange } = useProductsLogic();
+interface Props {
+  isItListForSelection: boolean;
+}
+
+const ProductsList: FunctionComponent<Props> = (props) => {
+  const { products, isSidebarOpened, setIsSidebarOpened, onFilterTextChange, onProductSelection } = useProductsLogic();
 
   const productsList = (
     <div>
       {products.map((product: Products) => (
-        <div key={product.id}>
-          <Link to={`/products/${product.id}`} className={styles.Product}>
-            <Product product={product} />
-          </Link>
+        <div
+          key={product.id}
+          onClick={() => onProductSelection(product, props.isItListForSelection)}
+          role="button"
+          aria-hidden="true"
+          aria-label="select Product"
+        >
+          <Product product={product} />
         </div>
       ))}
     </div>
@@ -24,12 +32,16 @@ const ProductsList = () => {
 
   return (
     <div className={styles.container}>
-      <input onChange={onFilterTextChange} />
-      <div className={`row ${styles.mainContent}`}>
-        <div className="col-md-6">{productsList}</div>
-        <div className="col-md-6">
-          <Route path="/products/:id" render={() => <ProductDescription />} />
+      <div className={`row justify-content-md-center ${styles.mainContent}`}>
+        <div className="col-md-8">
+          <input className={styles.filter} onChange={onFilterTextChange} />
+          {productsList}
         </div>
+        {isSidebarOpened && (
+          <Drawer close={() => setIsSidebarOpened(false)}>
+            <ProductDescription />
+          </Drawer>
+        )}
       </div>
     </div>
   );
