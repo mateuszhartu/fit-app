@@ -1,5 +1,7 @@
-import {createReducer, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Meal from 'shared/interfaces/Meal.interface';
+import Ingredient from 'shared/interfaces/Ingredient.interface';
+import _ from 'lodash';
 
 interface DailyDietState {
   dailyDiet: {
@@ -12,6 +14,9 @@ interface DailyDietState {
     training: Meal;
   };
   dailyKcal: number;
+  dailyCarbs: number;
+  dailyFat: number;
+  dailyProteins: number;
   date: Date;
 }
 
@@ -60,24 +65,34 @@ export const initialState: DailyDietState = {
       kcal: 0,
     },
   },
+  dailyCarbs: 0,
+  dailyFat: 0,
+  dailyProteins: 0,
   dailyKcal: 0,
   date: new Date(),
 };
+
+export interface SetMealIngredientsPayload {
+  name: keyof typeof initialState.dailyDiet;
+  ingredient: Ingredient;
+}
 
 const dailyDietSlice = createSlice({
   name: 'dailyDiet',
   initialState,
   reducers: {
-    setDailyDiet: (state, action: PayloadAction<SetDailyDietPayload>) => {
-      state.dailyDiet = action.payload.dailyDiet;
+    addMealIngredient: (state, action: PayloadAction<SetMealIngredientsPayload>) => {
+      state.dailyDiet[action.payload.name].ingredients.push(action.payload.ingredient);
     },
-    setMealIngredients: (state, action) => {
-      // @ts-ignore
-      state.dailyDiet[action.name].ingredients = [];
+    removeIngredient: (state, action: PayloadAction<SetMealIngredientsPayload>) => {
+      const removedElementIndex = state.dailyDiet[action.payload.name].ingredients.findIndex((ingredient) => {
+        return _.isEqual(ingredient, action.payload.ingredient);
+      });
+      state.dailyDiet[action.payload.name].ingredients.splice(removedElementIndex, 1);
     },
   },
 });
 
-export const { setDailyDiet, setMealIngredients } = dailyDietSlice.actions;
+export const { addMealIngredient, removeIngredient } = dailyDietSlice.actions;
 
 export default dailyDietSlice.reducer;

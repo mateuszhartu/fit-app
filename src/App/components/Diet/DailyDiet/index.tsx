@@ -10,25 +10,25 @@ const DailyDiet = () => {
   return (
     <div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Breakfast" mealIngredients={dailyDiet.breakfast} />
+        <MealComponent mealName="breakfast" mealIngredients={dailyDiet.breakfast} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Second breakfast" mealIngredients={dailyDiet.secondBreakfast} />
+        <MealComponent mealName="secondBreakfast" mealIngredients={dailyDiet.secondBreakfast} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Lunch" mealIngredients={dailyDiet.lunch} />
+        <MealComponent mealName="lunch" mealIngredients={dailyDiet.lunch} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Dinner" mealIngredients={dailyDiet.dinner} />
+        <MealComponent mealName="dinner" mealIngredients={dailyDiet.dinner} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Snack" mealIngredients={dailyDiet.snack} />
+        <MealComponent mealName="snack" mealIngredients={dailyDiet.snack} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Supper" mealIngredients={dailyDiet.supper} />
+        <MealComponent mealName="supper" mealIngredients={dailyDiet.supper} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="Training meal" mealIngredients={dailyDiet.training} />
+        <MealComponent mealName="training" mealIngredients={dailyDiet.training} />
       </div>
     </div>
   );

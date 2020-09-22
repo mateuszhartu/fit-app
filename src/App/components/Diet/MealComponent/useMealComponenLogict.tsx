@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'shared/store/rootReducer';
 import { setSelectedProduct } from 'shared/store/features/selectedProduct';
-import { setMealIngredients } from 'shared/store/features/dailyDietSlice';
+import { addMealIngredient, removeIngredient, SetMealIngredientsPayload } from 'shared/store/features/dailyDietSlice';
 
 const useMealComponentLogic = () => {
   const dispatch = useDispatch();
@@ -19,14 +19,21 @@ const useMealComponentLogic = () => {
     setIngredientAmount(event.target.valueAsNumber);
   };
 
-  const onAddIngredient = () => {
-    dispatch(setMealIngredients({  }))
+  const onAddIngredient = (mealIngredient: SetMealIngredientsPayload) => {
+    dispatch(addMealIngredient({ name: mealIngredient.name, ingredient: mealIngredient.ingredient }));
+  };
+
+  const onRemoveIngredient = (mealIngredient: SetMealIngredientsPayload) => {
+    dispatch(removeIngredient({ name: mealIngredient.name, ingredient: mealIngredient.ingredient }));
   };
 
   return {
     isSidebarOpened,
     setIsSidebarOpened,
     selectedProduct,
+    ingredientAmount,
+    onAddIngredient,
+    onRemoveIngredient,
     onCloseDrawerManually,
     onIngredientAmountChange,
   };

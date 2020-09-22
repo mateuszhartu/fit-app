@@ -6,12 +6,21 @@ import useMealComponentLogic from './useMealComponenLogict';
 import ProductsList from '../../Products';
 
 interface Props {
-  mealName: string;
+  mealName: 'breakfast' | 'secondBreakfast' | 'lunch' | 'dinner' | 'snack' | 'supper' | 'training';
   mealIngredients: Meal;
 }
 
 const MealComponent: FunctionComponent<Props> = (meal) => {
-  const { isSidebarOpened, setIsSidebarOpened, onCloseDrawerManually, onIngredientAmountChange, selectedProduct } = useMealComponentLogic();
+  const {
+    isSidebarOpened,
+    setIsSidebarOpened,
+    ingredientAmount,
+    onAddIngredient,
+    onRemoveIngredient,
+    onCloseDrawerManually,
+    onIngredientAmountChange,
+    selectedProduct,
+  } = useMealComponentLogic();
   return (
     <div className={styles.container}>
       <p>{meal.mealName}</p>
@@ -21,7 +30,15 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
             <div>
               <p>{selectedProduct.name}</p>
               <input type="number" className={styles.filter} onChange={onIngredientAmountChange} /> g
-              <button type="button" onClick={}>
+              <button
+                type="button"
+                onClick={() =>
+                  onAddIngredient({
+                    name: meal.mealName,
+                    ingredient: { products: selectedProduct, grams: ingredientAmount },
+                  })
+                }
+              >
                 Add Ingredient
               </button>
             </div>
@@ -44,6 +61,17 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
           <span>F: {ingredient.products.fat}</span>
           <span>P: {ingredient.products.proteins}</span>
           <span>kcal: {ingredient.products.kcal}</span>
+          <button
+            type="button"
+            onClick={() =>
+              onRemoveIngredient({
+                name: meal.mealName,
+                ingredient,
+              })
+            }
+          >
+            remove Ingredient
+          </button>
         </div>
       ))}
     </div>
