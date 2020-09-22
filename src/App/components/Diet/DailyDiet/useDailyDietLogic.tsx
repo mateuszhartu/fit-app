@@ -1,17 +1,17 @@
 import { useSelector } from 'react-redux';
 import { RootState } from 'shared/store/rootReducer';
-import Ingredient from 'shared/interfaces/Ingredient.interface';
-import { useState } from 'react';
 
 const useDailyLogic = () => {
-  const { dailyDiet } = useSelector((state: RootState) => state.dailyDiet);
-  const { selectedProduct } = useSelector((state: RootState) => state.selectedProduct);
-  const [addIngredientFlag, setAddIngredientFlag] = useState(false);
+  const { dailyDiet, dailyCarbs, dailyFat, dailyProteins, dailyKcal } = useSelector(
+    (state: RootState) => state.dailyDiet
+  );
 
   return {
     dailyDiet,
-    addIngredientFlag,
-    selectedProduct,
+    dailyCarbs,
+    dailyFat,
+    dailyProteins,
+    dailyKcal,
   };
 };
 export default useDailyLogic;

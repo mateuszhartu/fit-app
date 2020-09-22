@@ -15,11 +15,11 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
     isSidebarOpened,
     setIsSidebarOpened,
     ingredientAmount,
+    selectedProduct,
     onAddIngredient,
     onRemoveIngredient,
     onCloseDrawerManually,
     onIngredientAmountChange,
-    selectedProduct,
   } = useMealComponentLogic();
   return (
     <div className={styles.container}>

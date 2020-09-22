@@ -1,12 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styles from './styles.module.scss';
 import MealComponent from '../MealComponent';
-import { RootState } from '../../../../shared/store/rootReducer';
+import useDailyLogic from './useDailyDietLogic';
 
 const DailyDiet = () => {
-  const { dailyDiet } = useSelector((state: RootState) => state.dailyDiet);
-
+  const { dailyDiet, dailyCarbs, dailyFat, dailyProteins, dailyKcal } = useDailyLogic();
   return (
     <div>
       <div className={styles.productCard}>
@@ -29,6 +27,12 @@ const DailyDiet = () => {
       </div>
       <div className={styles.productCard}>
         <MealComponent mealName="training" mealIngredients={dailyDiet.training} />
+      </div>
+      <div className={styles.bottomBar}>
+        <p>Carbs: {dailyCarbs}</p>
+        <p>Fat: {dailyFat}</p>
+        <p>Proteins: {dailyProteins}</p>
+        <p>Kcal: {dailyKcal}</p>
       </div>
     </div>
   );

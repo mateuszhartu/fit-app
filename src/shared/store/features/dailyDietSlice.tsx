@@ -20,20 +20,6 @@ interface DailyDietState {
   date: Date;
 }
 
-interface SetDailyDietPayload {
-  dailyDiet: {
-    breakfast: Meal;
-    secondBreakfast: Meal;
-    lunch: Meal;
-    dinner: Meal;
-    snack: Meal;
-    supper: Meal;
-    training: Meal;
-  };
-  dailyKcal: number;
-  date: Date;
-}
-
 export const initialState: DailyDietState = {
   dailyDiet: {
     breakfast: {
@@ -83,12 +69,20 @@ const dailyDietSlice = createSlice({
   reducers: {
     addMealIngredient: (state, action: PayloadAction<SetMealIngredientsPayload>) => {
       state.dailyDiet[action.payload.name].ingredients.push(action.payload.ingredient);
+      state.dailyProteins += (action.payload.ingredient.products.proteins * action.payload.ingredient.grams) / 100;
+      state.dailyFat += (action.payload.ingredient.products.fat * action.payload.ingredient.grams) / 100;
+      state.dailyCarbs += (action.payload.ingredient.products.carbs * action.payload.ingredient.grams) / 100;
+      state.dailyKcal = (state.dailyCarbs + state.dailyFat + state.dailyProteins) * 4;
     },
     removeIngredient: (state, action: PayloadAction<SetMealIngredientsPayload>) => {
       const removedElementIndex = state.dailyDiet[action.payload.name].ingredients.findIndex((ingredient) => {
         return _.isEqual(ingredient, action.payload.ingredient);
       });
       state.dailyDiet[action.payload.name].ingredients.splice(removedElementIndex, 1);
+      state.dailyProteins -= (action.payload.ingredient.products.proteins * action.payload.ingredient.grams) / 100;
+      state.dailyFat -= (action.payload.ingredient.products.fat * action.payload.ingredient.grams) / 100;
+      state.dailyCarbs -= (action.payload.ingredient.products.carbs * action.payload.ingredient.grams) / 100;
+      state.dailyKcal = (state.dailyCarbs + state.dailyFat + state.dailyProteins) * 4;
     },
   },
 });
