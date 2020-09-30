@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'shared/store/rootReducer';
 import { setSelectedProduct } from 'shared/store/features/selectedProduct';
 import { addMealIngredient, removeIngredient, SetMealIngredientsPayload } from 'shared/store/features/dailyDietSlice';
-import updateDiet from 'shared/api/diet';
+import Ingredient from 'shared/interfaces/Ingredient.interface';
 
 const useMealComponentLogic = () => {
   const dispatch = useDispatch();
   const [isSidebarOpened, setIsSidebarOpened] = useState(false);
   const [ingredientAmount, setIngredientAmount] = useState(0);
   const { selectedProduct } = useSelector((state: RootState) => state.selectedProduct);
-  const { dailyDiet } = useSelector((state: RootState) => state);
 
   const onCloseDrawerManually = () => {
     setIsSidebarOpened(false);
@@ -23,12 +22,18 @@ const useMealComponentLogic = () => {
 
   const onAddIngredient = (mealIngredient: SetMealIngredientsPayload) => {
     dispatch(addMealIngredient({ name: mealIngredient.name, ingredient: mealIngredient.ingredient }));
-    updateDiet(dailyDiet).then((r) => console.log(r));
+    setIsSidebarOpened(false);
   };
 
   const onRemoveIngredient = (mealIngredient: SetMealIngredientsPayload) => {
     dispatch(removeIngredient({ name: mealIngredient.name, ingredient: mealIngredient.ingredient }));
-    updateDiet(dailyDiet);
+  };
+
+  const calculateCalories = (ingredient: Ingredient) => {
+    return (
+      ((ingredient.products.carbs + ingredient.products.fat + ingredient.products.proteins) * 4 * ingredient.grams) /
+      100
+    );
   };
 
   return {
@@ -36,6 +41,7 @@ const useMealComponentLogic = () => {
     setIsSidebarOpened,
     selectedProduct,
     ingredientAmount,
+    calculateCalories,
     onAddIngredient,
     onRemoveIngredient,
     onCloseDrawerManually,

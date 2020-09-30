@@ -4,35 +4,45 @@ import MealComponent from '../MealComponent';
 import useDailyLogic from './useDailyDietLogic';
 
 const DailyDiet = () => {
-  const { dailyDiet, dailyCarbs, dailyFat, dailyProteins, dailyKcal } = useDailyLogic();
+  const {
+    carbsGoal,
+    fatGoal,
+    proteinsGoal,
+    kcalGoal,
+    dailyMeals,
+    dailyCarbs,
+    dailyFat,
+    dailyProteins,
+    dailyKcal,
+  } = useDailyLogic();
   return (
     <div>
       <div className={styles.productCard}>
-        <MealComponent mealName="breakfast" mealIngredients={dailyDiet.breakfast} />
+        <MealComponent mealName="breakfast" mealIngredients={dailyMeals.breakfast} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="secondBreakfast" mealIngredients={dailyDiet.secondBreakfast} />
+        <MealComponent mealName="secondBreakfast" mealIngredients={dailyMeals.secondBreakfast} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="lunch" mealIngredients={dailyDiet.lunch} />
+        <MealComponent mealName="lunch" mealIngredients={dailyMeals.lunch} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="dinner" mealIngredients={dailyDiet.dinner} />
+        <MealComponent mealName="dinner" mealIngredients={dailyMeals.dinner} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="snack" mealIngredients={dailyDiet.snack} />
+        <MealComponent mealName="snack" mealIngredients={dailyMeals.snack} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="supper" mealIngredients={dailyDiet.supper} />
+        <MealComponent mealName="supper" mealIngredients={dailyMeals.supper} />
       </div>
       <div className={styles.productCard}>
-        <MealComponent mealName="training" mealIngredients={dailyDiet.training} />
+        <MealComponent mealName="training" mealIngredients={dailyMeals.training} />
       </div>
       <div className={styles.bottomBar}>
-        <p>Carbs: {dailyCarbs}</p>
-        <p>Fat: {dailyFat}</p>
-        <p>Proteins: {dailyProteins}</p>
-        <p>Kcal: {dailyKcal}</p>
+        <p className={carbsGoal > dailyCarbs ? styles.success : styles.error}>Carbs: {dailyCarbs}</p>
+        <p className={fatGoal > dailyFat ? styles.success : styles.error}>Fat: {dailyFat}</p>
+        <p className={proteinsGoal > dailyProteins ? styles.success : styles.error}>Proteins: {dailyProteins}</p>
+        <p className={kcalGoal > dailyKcal ? styles.success : styles.error}>Kcal: {dailyKcal}</p>
       </div>
     </div>
   );

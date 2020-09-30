@@ -13,8 +13,6 @@ const NewProduct = () => {
     proteins: 0,
   });
 
-  // [to do] redirect -> Diet component after dispatch
-
   return (
     <div className={styles.container}>
       <div className={`col-md-4 ${styles.name}`}>
@@ -32,21 +30,21 @@ const NewProduct = () => {
           value={product.carbs}
           onChange={(event) => setProduct({ ...product, carbs: parseFloat(event.target.value) })}
         />
-        <span>kcal,</span>
+        <span>g,</span>
         <label htmlFor="Fat">Fat: </label>
         <input
           type="number"
           value={product.fat}
           onChange={(event) => setProduct({ ...product, fat: parseFloat(event.target.value) })}
         />
-        <span>kcal,</span>
+        <span>g,</span>
         <label htmlFor="Proteins">Proteins: </label>
         <input
           type="number"
           value={product.proteins}
           onChange={(event) => setProduct({ ...product, proteins: parseFloat(event.target.value) })}
         />
-        <span>kcal</span>
+        <span>g</span>
       </div>
       <ToggleContent
         toggle={(show) => (

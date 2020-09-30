@@ -13,7 +13,7 @@ const useProductsLogic = () => {
   const [isSidebarOpened, setIsSidebarOpened] = useState(false);
   const [filterText, setFilterText] = useState('');
   const debounceFilterText = useDebounce(filterText, 500);
-  // TODO dodać filtr w deps i obsługę błędu (np. globalny alert)
+  // TODO dodać obsługę błędu (np. globalny alert)
 
   const filterProducts = useCallback(() => {
     getProducts(debounceFilterText).then((filteredProducts: Products[]) => {

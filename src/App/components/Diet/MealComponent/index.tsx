@@ -16,6 +16,7 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
     setIsSidebarOpened,
     ingredientAmount,
     selectedProduct,
+    calculateCalories,
     onAddIngredient,
     onRemoveIngredient,
     onCloseDrawerManually,
@@ -60,7 +61,7 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
           <span>C: {ingredient.products.carbs}</span>
           <span>F: {ingredient.products.fat}</span>
           <span>P: {ingredient.products.proteins}</span>
-          <span>kcal: {ingredient.products.kcal}</span>
+          <span>kcal: {calculateCalories(ingredient)}</span>
           <button
             type="button"
             onClick={() =>

@@ -1,7 +1,7 @@
 import Meal from './Meal.interface';
 
 export default interface DailyDiet {
-  dailyDiet: {
+  dailyMeals: {
     breakfast: Meal;
     secondBreakfast: Meal;
     lunch: Meal;

@@ -15,9 +15,9 @@ const Product: FunctionComponent<Props> = (product) => {
     <div className={styles.ProductCard}>
       <h6>{product.product.name}</h6>
       <div className={styles.Macros}>
-        <p>C: {product.product.carbs} kcal</p>
-        <p>F: {product.product.fat} kcal</p>
-        <p>P: {product.product.proteins} kcal</p>
+        <p>C: {product.product.carbs} g</p>
+        <p>F: {product.product.fat} g</p>
+        <p>P: {product.product.proteins} g</p>
       </div>
       <p>Sum: {sumCalculator(product.product)} kcal</p>
       <button className={`btn ${styles.RemoveBtn}`} type="button" onClick={() => removeProduct(product.product.id)}>
