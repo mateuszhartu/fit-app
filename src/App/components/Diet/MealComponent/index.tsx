@@ -55,8 +55,9 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
           +
         </button>
       )}
-      {meal.mealIngredients.ingredients.map((ingredient) => (
-        <div>
+      {meal.mealIngredients.ingredients.map((ingredient, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div key={index}>
           <p>{ingredient.products.name}</p>
           <span>C: {ingredient.products.carbs}</span>
           <span>F: {ingredient.products.fat}</span>

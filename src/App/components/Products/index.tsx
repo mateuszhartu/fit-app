@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, { FunctionComponent } from 'react';
 import Product from 'App/components/Products/Product';
 import Products from 'shared/interfaces/Products.inteface';
 import ProductDescription from 'App/components/Products/Product/ProductDescription';

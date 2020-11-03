@@ -22,6 +22,7 @@ const useMealComponentLogic = () => {
 
   const onAddIngredient = (mealIngredient: SetMealIngredientsPayload) => {
     dispatch(addMealIngredient({ name: mealIngredient.name, ingredient: mealIngredient.ingredient }));
+    dispatch(setSelectedProduct({ selectedProduct: null }));
     setIsSidebarOpened(false);
   };
 

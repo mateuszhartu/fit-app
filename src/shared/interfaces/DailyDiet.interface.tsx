@@ -14,5 +14,5 @@ export default interface DailyDiet {
   dailyCarbs: number;
   dailyFat: number;
   dailyProteins: number;
-  date: Date;
+  date: string;
 }

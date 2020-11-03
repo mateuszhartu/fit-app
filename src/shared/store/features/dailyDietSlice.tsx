@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Meal from 'shared/interfaces/Meal.interface';
 import Ingredient from 'shared/interfaces/Ingredient.interface';
 import _ from 'lodash';
+import moment from 'moment';
 
 interface DailyDietState {
   dailyMeals: {
@@ -17,7 +18,7 @@ interface DailyDietState {
   dailyCarbs: number;
   dailyFat: number;
   dailyProteins: number;
-  date: Date;
+  date: string;
 }
 
 interface SetDailyDietPayload {
@@ -34,7 +35,7 @@ interface SetDailyDietPayload {
   dailyCarbs: number;
   dailyFat: number;
   dailyProteins: number;
-  date: Date;
+  date: string;
 }
 
 export const initialState: DailyDietState = {
@@ -72,7 +73,7 @@ export const initialState: DailyDietState = {
   dailyFat: 0,
   dailyProteins: 0,
   dailyKcal: 0,
-  date: new Date(),
+  date: moment().format('YYYY-MM-DD'),
 };
 
 export interface SetMealIngredientsPayload {
@@ -109,9 +110,12 @@ const dailyDietSlice = createSlice({
       state.dailyCarbs -= (action.payload.ingredient.products.carbs * action.payload.ingredient.grams) / 100;
       state.dailyKcal = (state.dailyCarbs + state.dailyFat + state.dailyProteins) * 4;
     },
+    setDailyDietDate: (state, action: PayloadAction<SetDailyDietPayload>) => {
+      state.date = action.payload.date;
+    },
   },
 });
 
-export const { setDailyDiet, addMealIngredient, removeIngredient } = dailyDietSlice.actions;
+export const { setDailyDiet, addMealIngredient, removeIngredient, setDailyDietDate } = dailyDietSlice.actions;
 
 export default dailyDietSlice.reducer;

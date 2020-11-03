@@ -34,7 +34,7 @@ const Header = () => {
             <Link to={{ pathname: '/user/daily-diet' }}>Diet</Link>
           </li>
           <li>
-            <Link to={{ pathname: '/user/training' }}>Your training</Link>
+            <Link to={{ pathname: '/reports' }}>Diet Reports</Link>
           </li>
           <li>
             <Link to={{ pathname: '/user/dimensions' }}>Your body</Link>
