@@ -15,4 +15,10 @@ export default interface DailyDiet {
   dailyFat: number;
   dailyProteins: number;
   date: string;
+  settings: {
+    kcal: number;
+    proteins: number;
+    carbs: number;
+    fat: number;
+  };
 }

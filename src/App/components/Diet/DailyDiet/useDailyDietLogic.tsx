@@ -13,11 +13,12 @@ const useDailyLogic = () => {
   );
   const { dailyDiet } = useSelector((state: RootState) => state);
   const { carbsGoal, fatGoal, proteinsGoal, kcalGoal } = useSelector((state: RootState) => state.userGoals);
+  const [dateShift, setDateShift] = useState(0);
   const [dietId, setDietId] = useState('');
   const firstUpdate = useRef(true);
 
   useEffect(() => {
-    const currentDate = moment().format('YYYY-MM-DD');
+    const currentDate = moment().add(dateShift, 'days').format('YYYY-MM-DD');
     getDiet(currentDate, currentDate).then((fetchedDiet: DailyDiet) => {
       interface FetchedObject<T> {
         [index: string]: T;
@@ -44,24 +45,32 @@ const useDailyLogic = () => {
           dailyCarbs: fetchedDailyDiet[0].dailyCarbs,
           dailyKcal: fetchedDailyDiet[0].dailyKcal,
           date: fetchedDailyDiet[0].date,
+          settings: {
+            kcal: kcalGoal,
+            proteins: proteinsGoal,
+            carbs: carbsGoal,
+            fat: fatGoal,
+          },
         })
       );
     });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dateShift]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useLayoutEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     }
-    if (dailyDiet.date === moment().format('YYYY-MM-DD') && dietId !== '') {
+    if (dailyDiet.date === moment().add(dateShift, 'days').format('YYYY-MM-DD') && dietId !== '') {
       updateDiet(dailyDiet, dietId).then(() => console.log('here will be alert'));
       return;
     }
     addDiet(dailyDiet).then((diet: any) => setDietId(diet.data.name));
-  }, [dailyDiet, dietId]);
+  }, [dailyDiet]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
+    setDateShift,
+    dateShift,
     carbsGoal,
     fatGoal,
     proteinsGoal,

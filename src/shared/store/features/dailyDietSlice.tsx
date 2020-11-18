@@ -19,6 +19,12 @@ interface DailyDietState {
   dailyFat: number;
   dailyProteins: number;
   date: string;
+  settings: {
+    kcal: number;
+    proteins: number;
+    carbs: number;
+    fat: number;
+  };
 }
 
 interface SetDailyDietPayload {
@@ -36,6 +42,12 @@ interface SetDailyDietPayload {
   dailyFat: number;
   dailyProteins: number;
   date: string;
+  settings: {
+    kcal: number;
+    proteins: number;
+    carbs: number;
+    fat: number;
+  };
 }
 
 export const initialState: DailyDietState = {
@@ -74,6 +86,12 @@ export const initialState: DailyDietState = {
   dailyProteins: 0,
   dailyKcal: 0,
   date: moment().format('YYYY-MM-DD'),
+  settings: {
+    kcal: 0,
+    proteins: 0,
+    carbs: 0,
+    fat: 0,
+  },
 };
 
 export interface SetMealIngredientsPayload {
@@ -92,6 +110,7 @@ const dailyDietSlice = createSlice({
       state.dailyCarbs = action.payload.dailyCarbs;
       state.dailyKcal = action.payload.dailyKcal;
       state.date = action.payload.date;
+      state.settings = action.payload.settings;
     },
     addMealIngredient: (state, action: PayloadAction<SetMealIngredientsPayload>) => {
       state.dailyMeals[action.payload.name].ingredients.push(action.payload.ingredient);

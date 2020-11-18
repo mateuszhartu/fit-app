@@ -1,10 +1,13 @@
 import React from 'react';
+import { Pie } from 'react-chartjs-2';
 import styles from './styles.module.scss';
 import MealComponent from '../MealComponent';
 import useDailyLogic from './useDailyDietLogic';
 
 const DailyDiet = () => {
   const {
+    dateShift,
+    setDateShift,
     carbsGoal,
     fatGoal,
     proteinsGoal,
@@ -43,6 +46,59 @@ const DailyDiet = () => {
         <p className={fatGoal > dailyFat ? styles.success : styles.error}>Fat: {dailyFat}</p>
         <p className={proteinsGoal > dailyProteins ? styles.success : styles.error}>Proteins: {dailyProteins}</p>
         <p className={kcalGoal > dailyKcal ? styles.success : styles.error}>Kcal: {dailyKcal}</p>
+      </div>
+      <div>
+        <button type="button" onClick={() => setDateShift(dateShift - 1)}>
+          prev
+        </button>
+        {dateShift !== 0 && (
+          <button type="button" onClick={() => setDateShift(dateShift + 1)}>
+            next
+          </button>
+        )}
+      </div>
+      <div style={{ height: '300px' }}>
+        <Pie
+          data={{
+            datasets: [
+              {
+                data: [dailyCarbs, dailyProteins, dailyFat],
+                backgroundColor: ['red', 'blue', 'yellow'],
+              },
+            ],
+            labels: ['Carbs', 'Proteins', 'Fat'],
+          }}
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            tooltips: {
+              callbacks: {
+                label(
+                  tooltipItem: { index: number; datasetIndex: number },
+                  data: { labels: { [x: string]: string }; datasets: { data: number[] }[] }
+                ) {
+                  try {
+                    let label = ` ${data.labels[tooltipItem.index]}` || '';
+
+                    if (label) {
+                      label += ': ';
+                    }
+
+                    const sum = data.datasets[0].data.reduce((accumulator, curValue) => {
+                      return accumulator + curValue;
+                    });
+                    const value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+
+                    label += `${Number((value / sum) * 100).toFixed(2)}%`;
+                    return label;
+                  } catch (error) {
+                    console.log(error);
+                  }
+                },
+              },
+            },
+          }}
+        />
       </div>
     </div>
   );
