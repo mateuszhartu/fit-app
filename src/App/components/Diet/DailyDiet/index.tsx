@@ -63,7 +63,7 @@ const DailyDiet = () => {
             datasets: [
               {
                 data: [dailyCarbs, dailyProteins, dailyFat],
-                backgroundColor: ['red', 'blue', 'yellow'],
+                backgroundColor: ['#83DBD6', '#E57872', '#2E7D9E'],
               },
             ],
             labels: ['Carbs', 'Proteins', 'Fat'],
@@ -73,6 +73,7 @@ const DailyDiet = () => {
             maintainAspectRatio: false,
             tooltips: {
               callbacks: {
+                // eslint-disable-next-line consistent-return,no-restricted-syntax
                 label(
                   tooltipItem: { index: number; datasetIndex: number },
                   data: { labels: { [x: string]: string }; datasets: { data: number[] }[] }

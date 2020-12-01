@@ -1,16 +1,20 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import useDietReportsLogic from './useDietReportsLogic';
+import styles from './styles.module.scss';
 
 const DietReports = () => {
   const {
     setNumberOfDisplayedDays,
-    setChartProperties,
-    carbsGoal,
-    fatGoal,
-    proteinsGoal,
-    kcalGoal,
     chartData,
+    showCalories,
+    showCarbs,
+    showProteins,
+    showFat,
+    setShowFat,
+    setShowProteins,
+    setShowCarbs,
+    setShowCalories,
   } = useDietReportsLogic();
   return (
     <div>
@@ -29,24 +33,48 @@ const DietReports = () => {
         <Line
           data={chartData}
           options={{
+            tooltips: {
+              mode: 'index',
+              intersect: false,
+            },
+            hover: {
+              mode: 'nearest',
+              intersect: true,
+            },
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+            legend: {
+              display: false,
+            },
             responsive: true,
             maintainAspectRatio: false,
           }}
         />
       </div>
-      <div>
-        <button type="button" onClick={() => setChartProperties('Calories', 'dailyKcal', kcalGoal, 'kcal')}>
-          kcal
-        </button>
-        <button type="button" onClick={() => setChartProperties('Carbs', 'dailyCarbs', carbsGoal, 'carbs')}>
-          carbs
-        </button>
-        <button type="button" onClick={() => setChartProperties('Fat', 'dailyFat', fatGoal, 'fat')}>
-          fat
-        </button>
-        <button type="button" onClick={() => setChartProperties('Proteins', 'dailyProteins', proteinsGoal, 'proteins')}>
-          proteins
-        </button>
+      <div className={styles.checkboxes}>
+        <label>
+          <input type="checkbox" checked={showCalories} onChange={(event) => setShowCalories(event.target.checked)} />
+          Calories
+        </label>
+        <label>
+          <input type="checkbox" checked={showCarbs} onChange={(event) => setShowCarbs(event.target.checked)} />
+          Carbs
+        </label>
+        <label>
+          <input type="checkbox" checked={showFat} onChange={(event) => setShowFat(event.target.checked)} />
+          Fat
+        </label>
+        <label>
+          <input type="checkbox" checked={showProteins} onChange={(event) => setShowProteins(event.target.checked)} />
+          Proteins
+        </label>
       </div>
     </div>
   );
