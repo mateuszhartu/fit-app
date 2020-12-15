@@ -9,6 +9,9 @@ const useMealComponentLogic = () => {
   const dispatch = useDispatch();
   const [isSidebarOpened, setIsSidebarOpened] = useState(false);
   const [ingredientAmount, setIngredientAmount] = useState(0);
+  const { highlightedCarbs, highlightedFat, highlightedProteins } = useSelector(
+    (state: RootState) => state.highlightedProducts
+  );
   const { selectedProduct } = useSelector((state: RootState) => state.selectedProduct);
 
   const onCloseDrawerManually = () => {
@@ -41,6 +44,9 @@ const useMealComponentLogic = () => {
     isSidebarOpened,
     setIsSidebarOpened,
     selectedProduct,
+    highlightedCarbs,
+    highlightedFat,
+    highlightedProteins,
     ingredientAmount,
     calculateCalories,
     onAddIngredient,

@@ -15,6 +15,9 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
     isSidebarOpened,
     setIsSidebarOpened,
     ingredientAmount,
+    highlightedCarbs,
+    highlightedProteins,
+    highlightedFat,
     selectedProduct,
     calculateCalories,
     onAddIngredient,
@@ -56,12 +59,24 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
         </button>
       )}
       {meal.mealIngredients.ingredients.map((ingredient, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <div key={index}>
+        <div
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${index} ${ingredient.products.name}`}
+          className={
+            highlightedCarbs.some(
+              (ingr) =>
+                ingr.products.carbs === ingredient.products.carbs &&
+                ingr.grams === ingredient.grams &&
+                ingr.products.name === ingredient.products.name
+            )
+              ? styles.Highlighted
+              : ''
+          }
+        >
           <p>{ingredient.products.name}</p>
-          <span>C: {ingredient.products.carbs}</span>
-          <span>F: {ingredient.products.fat}</span>
-          <span>P: {ingredient.products.proteins}</span>
+          <span>C: {ingredient.products.carbs * ingredient.grams * 0.01}</span>
+          <span>F: {ingredient.products.fat * ingredient.grams * 0.01}</span>
+          <span>P: {ingredient.products.proteins * ingredient.grams * 0.01}</span>
           <span>kcal: {calculateCalories(ingredient)}</span>
           <button
             type="button"
