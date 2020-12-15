@@ -43,8 +43,8 @@ const useDailyLogic = () => {
               tempCarbsArray = tempCarbsArray.filter((item) => item.products.carbs * item.grams * 0.01 !== min);
               tempCarbsArray.push(p);
             }
-            setHighlightedCarbsProducts(tempCarbsArray);
           }
+          setHighlightedCarbsProducts(tempCarbsArray);
           if (dailyDiet.dailyFat > fatGoal) {
             if (tempFatArray.length < 3) {
               tempFatArray.push(p);
