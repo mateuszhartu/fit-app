@@ -3,7 +3,7 @@ import { RootState } from 'shared/store/rootReducer';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { updateDiet, getDiet, addDiet } from 'shared/api/diet';
 import DailyDiet from 'shared/interfaces/DailyDiet.interface';
-import { setDailyDiet } from 'shared/store/features/dailyDietSlice';
+import { setDailyDiet, initialState } from 'shared/store/features/dailyDietSlice';
 import moment from 'moment';
 
 const useDailyLogic = () => {
@@ -24,6 +24,23 @@ const useDailyLogic = () => {
         [index: string]: T;
       }
       if (Object.keys(fetchedDiet).length === 0) {
+        setDietId('');
+        dispatch(
+          setDailyDiet({
+            dailyMeals: initialState.dailyMeals,
+            dailyProteins: initialState.dailyProteins,
+            dailyFat: initialState.dailyFat,
+            dailyCarbs: initialState.dailyCarbs,
+            dailyKcal: initialState.dailyKcal,
+            date: moment().add(dateShift, 'days').format('YYYY-MM-DD'),
+            settings: {
+              kcal: kcalGoal,
+              proteins: proteinsGoal,
+              carbs: carbsGoal,
+              fat: fatGoal,
+            },
+          })
+        );
         return;
       }
       setDietId(Object.keys(fetchedDiet).toString());
