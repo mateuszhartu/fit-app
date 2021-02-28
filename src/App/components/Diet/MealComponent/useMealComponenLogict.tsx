@@ -19,6 +19,25 @@ const useMealComponentLogic = () => {
     dispatch(setSelectedProduct({ selectedProduct: null }));
   };
 
+  const checkToHighlightProduct = (highlightedArray: Ingredient[], ingredient: Ingredient) => {
+    return highlightedArray.some(
+      (ingr) =>
+        ingr.products.carbs === ingredient.products.carbs &&
+        ingr.grams === ingredient.grams &&
+        ingr.products.name === ingredient.products.name
+    );
+  };
+
+  const highlightElementHandler = (ingredient: Ingredient) => {
+    if (checkToHighlightProduct(highlightedCarbs, ingredient)) {
+      return true;
+    }
+    if (checkToHighlightProduct(highlightedFat, ingredient)) {
+      return true;
+    }
+    return checkToHighlightProduct(highlightedProteins, ingredient);
+  };
+
   const onIngredientAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIngredientAmount(event.target.valueAsNumber);
   };
@@ -44,10 +63,8 @@ const useMealComponentLogic = () => {
     isSidebarOpened,
     setIsSidebarOpened,
     selectedProduct,
-    highlightedCarbs,
-    highlightedFat,
-    highlightedProteins,
     ingredientAmount,
+    highlightElementHandler,
     calculateCalories,
     onAddIngredient,
     onRemoveIngredient,

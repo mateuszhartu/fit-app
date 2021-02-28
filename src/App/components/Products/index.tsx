@@ -24,7 +24,7 @@ const ProductsList: FunctionComponent<Props> = (props) => {
           aria-hidden="true"
           aria-label="select Product"
         >
-          <Product product={product} />
+          <Product product={product} canRemoveProduct={!props.isItListForSelection} />
         </div>
       ))}
     </div>

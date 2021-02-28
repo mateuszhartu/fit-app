@@ -1,15 +1,38 @@
-.productCard {
-  border: 2px solid blue;
-}
-.bottomBar {
+.container {
+  width: 95%;
+  margin: auto;
   display: flex;
-  p {
-    margin-right: 20px;
+  flex-direction: row;
+  .dailyDiet {
+    width: 100%;
+    .productsList {
+      max-height: 80vh;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    .bottomBar {
+      display: flex;
+      p {
+        font-size: 18px;
+        margin: 10px 20px 10px 0;
+      }
+      .success {
+        color: #09cd09;
+      }
+      .error {
+        color: #ff0000;
+      }
+    }
+    .navButtons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
-  .success {
-    color: #09cd09;
-  }
-  .error {
-    color: #ff0000;
+  .dietChart {
+    width: 80%;
+    height: 300px;
   }
 }

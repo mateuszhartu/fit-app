@@ -8,6 +8,9 @@
   margin: 5px;
   border: 1px solid #222222;
   border-radius: 5px;
+  &:hover {
+    background-color: rgba(166,173,201,.2);
+  }
   h3 {
     text-transform: uppercase;
   }
@@ -29,9 +32,9 @@
     text-align: center;
     color: #fff;
     border-radius: 10px;
-    background-color: #222;
+    background-color: #de2d2d;
     &:hover {
-      color: red;
+      background-color: #ff0000;
     }
   }
 }

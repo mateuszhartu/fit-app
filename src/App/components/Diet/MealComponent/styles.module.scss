@@ -1,10 +1,65 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0,123,255,.04);
+  border-radius: 10px;
+  margin: 0 5px 20px;
+  box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+  .header {
+    margin: 10px auto;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #007bff;
+  }
+  .ingredient {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 2px;
+    padding-bottom: -15px;
+    &.highlighted {
+      background-color: #e96363;
+      .ingredientHeader {
+        p {
+          color: #414141;
+        }
+      }
+    }
+    .ingredientHeader {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      p {
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #007bff;
+      }
+    }
+    .ingredientMacros {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      span {
+        padding: 0 10px;
+        font-size: 18px;
+      }
+    }
+  }
 }
 
-span {
-  padding: 0 10px;
+.addButton, .removeButton {
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+  border-radius: 20px;
+  margin: 5px 10px;
 }
 
-.Highlighted {
-  background-color: #e96363;
+.removeButton {
+  background-color: #de2d2d;
+  &:hover {
+    background-color: #ff0000;
+  }
 }

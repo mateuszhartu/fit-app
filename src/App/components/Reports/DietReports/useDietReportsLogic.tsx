@@ -3,6 +3,7 @@ import { getDiet } from 'shared/api/diet';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { RootState } from 'shared/store/rootReducer';
+import FetchedFirebaseData from 'shared/interfaces/FetchedDailyDiet.interface';
 
 const useDietReportsLogic = () => {
   const [numberOfDisplayedDays, setNumberOfDisplayedDays] = useState(3);
@@ -141,7 +142,7 @@ const useDietReportsLogic = () => {
       .subtract(numberOfDisplayedDays - 1, 'days')
       .format('YYYY-MM-DD');
     const endDate = moment().format('YYYY-MM-DD');
-    getDiet(startDate, endDate).then((fetchedDiet: any) => {
+    getDiet(startDate, endDate).then((fetchedDiet: FetchedFirebaseData) => {
       const dietDates = [];
       const dietDataKcal: number[] = [];
       const dietDataFat: number[] = [];

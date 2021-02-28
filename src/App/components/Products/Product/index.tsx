@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 
 interface Props {
   product: Products;
+  canRemoveProduct: boolean;
 }
 
 const Product: FunctionComponent<Props> = (product) => {
@@ -19,10 +20,12 @@ const Product: FunctionComponent<Props> = (product) => {
         <p>F: {product.product.fat} g</p>
         <p>P: {product.product.proteins} g</p>
       </div>
-      <p>Sum: {sumCalculator(product.product)} kcal</p>
-      <button className={`btn ${styles.RemoveBtn}`} type="button" onClick={() => removeProduct(product.product.id)}>
-        X
-      </button>
+      <p>{sumCalculator(product.product)} kcal</p>
+      {product.canRemoveProduct && (
+        <button className={`btn ${styles.RemoveBtn}`} type="button" onClick={() => removeProduct(product.product.id)}>
+          <strong>X</strong>
+        </button>
+      )}
     </div>
   );
 };

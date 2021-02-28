@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Meal from 'shared/interfaces/Meal.interface';
 import Drawer from 'shared/hoc/Drawer';
+import classes from 'shared/styles/globalStyles.module.scss';
 import styles from './styles.module.scss';
 import useMealComponentLogic from './useMealComponenLogict';
 import ProductsList from '../../Products';
@@ -15,9 +16,7 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
     isSidebarOpened,
     setIsSidebarOpened,
     ingredientAmount,
-    highlightedCarbs,
-    highlightedProteins,
-    highlightedFat,
+    highlightElementHandler,
     selectedProduct,
     calculateCalories,
     onAddIngredient,
@@ -27,7 +26,38 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
   } = useMealComponentLogic();
   return (
     <div className={styles.container}>
-      <p>{meal.mealName}</p>
+      <h4 className={styles.header}>{meal.mealName === 'secondBreakfast' ? 'second breakfast' : meal.mealName}</h4>
+      {meal.mealIngredients.ingredients.map((ingredient, index) => (
+        <div
+          // eslint-disable-next-line react/no-array-index-key
+          key={`${index} ${ingredient.products.name}`}
+          className={`${highlightElementHandler(ingredient) ? styles.highlighted : ''} ${styles.ingredient}`}
+        >
+          <div className={styles.ingredientHeader}>
+            <p>{ingredient.products.name}</p>
+          </div>
+          <div className={styles.ingredientMacros}>
+            <span>C: {ingredient.products.carbs * ingredient.grams * 0.01}</span>
+            <span>F: {ingredient.products.fat * ingredient.grams * 0.01}</span>
+            <span>P: {ingredient.products.proteins * ingredient.grams * 0.01}</span>
+            <span>
+              <strong>kcal: {calculateCalories(ingredient)}</strong>
+            </span>
+          </div>
+          <button
+            type="button"
+            className={`${classes.buttonDefault} ${styles.removeButton}`}
+            onClick={() =>
+              onRemoveIngredient({
+                name: meal.mealName,
+                ingredient,
+              })
+            }
+          >
+            -
+          </button>
+        </div>
+      ))}
       {isSidebarOpened ? (
         <Drawer close={onCloseDrawerManually}>
           {selectedProduct ? (
@@ -54,43 +84,14 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
           )}
         </Drawer>
       ) : (
-        <button type="button" onClick={() => setIsSidebarOpened(true)}>
+        <button
+          type="button"
+          className={`${classes.buttonDefault} ${styles.addButton}`}
+          onClick={() => setIsSidebarOpened(true)}
+        >
           +
         </button>
       )}
-      {meal.mealIngredients.ingredients.map((ingredient, index) => (
-        <div
-          // eslint-disable-next-line react/no-array-index-key
-          key={`${index} ${ingredient.products.name}`}
-          className={
-            highlightedCarbs.some(
-              (ingr) =>
-                ingr.products.carbs === ingredient.products.carbs &&
-                ingr.grams === ingredient.grams &&
-                ingr.products.name === ingredient.products.name
-            )
-              ? styles.Highlighted
-              : ''
-          }
-        >
-          <p>{ingredient.products.name}</p>
-          <span>C: {ingredient.products.carbs * ingredient.grams * 0.01}</span>
-          <span>F: {ingredient.products.fat * ingredient.grams * 0.01}</span>
-          <span>P: {ingredient.products.proteins * ingredient.grams * 0.01}</span>
-          <span>kcal: {calculateCalories(ingredient)}</span>
-          <button
-            type="button"
-            onClick={() =>
-              onRemoveIngredient({
-                name: meal.mealName,
-                ingredient,
-              })
-            }
-          >
-            remove Ingredient
-          </button>
-        </div>
-      ))}
     </div>
   );
 };

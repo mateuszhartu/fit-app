@@ -7,6 +7,8 @@ import { setDailyDiet, initialState } from 'shared/store/features/dailyDietSlice
 import { setHighlightedProducts } from 'shared/store/features/highlightedProducts';
 import moment from 'moment';
 import Ingredient from 'shared/interfaces/Ingredient.interface';
+import FetchedFirebaseData from 'shared/interfaces/FetchedDailyDiet.interface';
+import Meal from 'shared/interfaces/Meal.interface';
 
 const useDailyLogic = () => {
   const dispatch = useDispatch();
@@ -17,19 +19,22 @@ const useDailyLogic = () => {
   const { carbsGoal, fatGoal, proteinsGoal, kcalGoal } = useSelector((state: RootState) => state.userGoals);
   const [dateShift, setDateShift] = useState(0);
   const [dietId, setDietId] = useState('');
-  const [highlightedCarbsProducts, setHighlightedCarbsProducts] = useState<Ingredient[]>([]);
-  const [highlightedFatProducts, setHighlightedFatProducts] = useState<Ingredient[]>([]);
-  const [highlightedProteinsProducts, setHighlightedProteinsProducts] = useState<Ingredient[]>([]);
   const firstUpdate = useRef(true);
 
+  interface FetchedObject<T> {
+    [index: string]: T;
+  }
+
   // TODO wydziel funkcję
-  const highlightProductHandler = (diet: any) => {
+  const highlightProductHandler = (diet: DailyDiet) => {
     let tempCarbsArray: Ingredient[] = [];
     let tempFatArray: Ingredient[] = [];
     let tempProteinsArray: Ingredient[] = [];
-    for (const [key] of Object.entries(diet.dailyMeals)) {
-      if (Object.keys(diet.dailyMeals[key].ingredients).length !== 0) {
-        diet.dailyMeals[key].ingredients.forEach((p: any) => {
+    const mealsObject: FetchedObject<Meal> = diet.dailyMeals;
+    for (const key in mealsObject) {
+      if (mealsObject[key].ingredients.length !== 0) {
+        for (let index = 0; index < mealsObject[key].ingredients.length; index += 1) {
+          const p = mealsObject[key].ingredients[index];
           if (dailyDiet.dailyCarbs > carbsGoal) {
             if (tempCarbsArray.length < 3) {
               tempCarbsArray.push(p);
@@ -44,7 +49,6 @@ const useDailyLogic = () => {
               tempCarbsArray.push(p);
             }
           }
-          setHighlightedCarbsProducts(tempCarbsArray);
           if (dailyDiet.dailyFat > fatGoal) {
             if (tempFatArray.length < 3) {
               tempFatArray.push(p);
@@ -54,9 +58,8 @@ const useDailyLogic = () => {
               )
             ) {
               const min = Math.min(...tempFatArray.map((item) => item.products.fat * item.grams * 0.01));
-              tempFatArray = tempFatArray.filter((item) => item.products.fat * item.grams * 0.01 === min);
+              tempFatArray = tempFatArray.filter((item) => item.products.fat * item.grams * 0.01 !== min);
             }
-            setHighlightedFatProducts(tempFatArray);
           }
           if (dailyDiet.dailyProteins > proteinsGoal) {
             if (tempProteinsArray.length < 3) {
@@ -69,23 +72,26 @@ const useDailyLogic = () => {
             ) {
               const min = Math.min(...tempProteinsArray.map((item) => item.products.proteins * item.grams * 0.01));
               tempProteinsArray = tempProteinsArray.filter(
-                (item) => item.products.proteins * item.grams * 0.01 === min
+                (item) => item.products.proteins * item.grams * 0.01 !== min
               );
               tempProteinsArray.push(p);
             }
           }
-          setHighlightedProteinsProducts(tempProteinsArray);
-        });
+        }
       }
     }
+    dispatch(
+      setHighlightedProducts({
+        highlightedCarbs: tempCarbsArray,
+        highlightedProteins: tempProteinsArray,
+        highlightedFat: tempFatArray,
+      })
+    );
   };
 
   useEffect(() => {
     const currentDate = moment().add(dateShift, 'days').format('YYYY-MM-DD');
-    getDiet(currentDate, currentDate).then((fetchedDiet: DailyDiet) => {
-      interface FetchedObject<T> {
-        [index: string]: T;
-      }
+    getDiet(currentDate, currentDate).then((fetchedDiet: FetchedFirebaseData) => {
       if (Object.keys(fetchedDiet).length === 0) {
         setDietId('');
         dispatch(
@@ -138,13 +144,6 @@ const useDailyLogic = () => {
 
   useEffect(() => {
     highlightProductHandler(dailyDiet);
-    dispatch(
-      setHighlightedProducts({
-        highlightedCarbs: highlightedCarbsProducts,
-        highlightedProteins: highlightedProteinsProducts,
-        highlightedFat: highlightedFatProducts,
-      })
-    );
   }, [dailyDiet]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useLayoutEffect(() => {
