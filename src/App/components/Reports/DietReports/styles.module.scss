@@ -1,5 +1,19 @@
 .checkboxes {
-  label {
-    margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  .checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    input {
+      cursor: pointer;
+      width: 40px;
+    }
+    .checkboxText
+    {
+      font-size: 110%;
+      display: inline;
+    }
   }
 }

@@ -1,13 +1,13 @@
 .container {
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
   .mainContent {
     display: flex;
     flex-direction: row;
   }
   .filter {
-    width: 300px;
-    margin-left: 20px;
+    margin-left: 15px;
   }
 }
 

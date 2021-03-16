@@ -1,49 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 
 const Header = () => {
+  const [dropdownTitle, setDropdownTitle] = useState('Training plans');
   return (
     <header>
       <nav className="navbar">
-        <ul className="nav">
+        <ul className={`nav ${styles.navList}`}>
           <li>
-            <Link to="/" className={styles.LinkButton}>
+            <Link to="/" className={styles.LinkButton} onClick={() => setDropdownTitle('Training plans')}>
               Home
             </Link>
           </li>
           <li>
-            <Link to={{ pathname: '/products' }}>Products</Link>
+            <Link to={{ pathname: '/products' }} onClick={() => setDropdownTitle('Training plans')}>
+              Products
+            </Link>
           </li>
-          <li>
-            Training plans
-            <ul className="dropdown" aria-label="submenu">
+          <li className={`dropdown ${styles.headerDropdown}`}>
+            {dropdownTitle}
+            <ul className={`dropdown-menu ${styles.headerDropdownMenu}`} aria-label="submenu">
               <li>
-                <Link to={{ pathname: '/training-plans/upper-body' }}>Upper body</Link>
+                <Link to={{ pathname: '/training-plans/upper-body' }} onClick={() => setDropdownTitle('Upper body')}>
+                  Upper body
+                </Link>
               </li>
               <li>
-                <Link to={{ pathname: '/training-plans/lower-body' }}>Lower body</Link>
+                <Link to={{ pathname: '/training-plans/lower-body' }} onClick={() => setDropdownTitle('Lower body')}>
+                  Lower body
+                </Link>
               </li>
               <li>
-                <Link to={{ pathname: '/training-plans/cardio' }}>Cardio</Link>
+                <Link to={{ pathname: '/training-plans/cardio' }} onClick={() => setDropdownTitle('Cardio')}>
+                  Cardio
+                </Link>
               </li>
             </ul>
           </li>
           <li>
-            <Link to={{ pathname: '/user/daily-diet' }}>Diet</Link>
+            <Link to={{ pathname: '/user/daily-diet' }} onClick={() => setDropdownTitle('Training plans')}>
+              Diet
+            </Link>
           </li>
           <li>
-            <Link to={{ pathname: '/reports' }}>Diet Reports</Link>
+            <Link to={{ pathname: '/reports' }} onClick={() => setDropdownTitle('Training plans')}>
+              Diet Reports
+            </Link>
           </li>
           <li>
-            <Link to={{ pathname: '/user/dimensions' }}>Your body</Link>
+            <Link to={{ pathname: '/user/dimensions' }} onClick={() => setDropdownTitle('Training plans')}>
+              Your body
+            </Link>
           </li>
           <li>
-            <Link to={{ pathname: '/add-product' }}>Add product</Link>
+            <Link to={{ pathname: '/add-product' }} onClick={() => setDropdownTitle('Training plans')}>
+              Add product
+            </Link>
           </li>
           <li>
-            <Link to={{ pathname: '/add-training-plan' }}>Custom training plan</Link>
+            <Link to={{ pathname: '/add-training-plan' }} onClick={() => setDropdownTitle('Training plans')}>
+              Custom training plan
+            </Link>
           </li>
         </ul>
       </nav>

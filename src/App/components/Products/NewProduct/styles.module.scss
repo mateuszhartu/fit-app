@@ -6,43 +6,74 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+  max-width: 50px;
 }
 
 input {
-  border-radius: 5px;
-  border: 1px solid #cccccc;
-  outline: none;
+  border: 0;
+  border-bottom: 1px solid;
+  display: block;
+  background: none;
+  box-sizing: content-box;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid #007bff;
+  }
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  margin: 0 20%;
+  align-items: center;
+  width: 40%;
+  margin: 5% auto;
+  padding: 15px 0;
+  background-color: rgba(0,123,255,.04);
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(154,160,185,.05), 0 15px 40px rgba(166,173,201,.2);
+  .title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 30px;
+  }
   .name {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 50%;
+    color: #007bff;
+    label {
+      min-width: 110px;
+    }
   }
   .macros {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    margin: 10px 0;
-    span, label {
+    flex-direction: column;
+    width: 50%;
+    margin: 5px 0;
+    color: #007bff;
+    .macrosElement {
+      display: flex;
+      flex-direction: row;
+      margin: 5px 0;
+      label {
+        min-width: 110px;
+        padding: 0;
+      }
+    }
+    span {
       padding: 0 5px;
+      margin-bottom: 0.5rem;
     }
   }
 }
 
-.addButton {
-  width: 30%;
-  min-width: 150px;
-  border-radius: 5px;
-  border: none;
-  color: #000;
-  text-transform: uppercase;
-  font-weight: 600;
-  &:hover {
-    background-color: #09cd09;
-    color: #fff;
-  }
+.modalTitle {
+  color: #007bff;
+}
+
+.modalText {
+  width: 50%;
 }

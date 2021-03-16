@@ -11,15 +11,36 @@
   &:hover {
     background-color: rgba(166,173,201,.2);
   }
-  h3 {
+  h4 {
     text-transform: uppercase;
+    font-weight: bold;
+    color: #007bff;
   }
   .Macros {
-    display: flex;
     flex-direction: row;
     p {
       padding: 0 10px;
+      margin-top: 2px;
     }
+  }
+  .lightMacros {
+    flex-direction: row;
+    flex-wrap: wrap;
+    p {
+      padding: 0 10px;
+      margin: 0;
+    }
+  }
+  .Macros, .lightMacros {
+    display: flex;
+    width: 100%;
+  }
+  .description {
+    margin-top: auto;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .RemoveBtn {
     position: absolute;
@@ -30,11 +51,12 @@
     font-size: 10px;
     padding: 0;
     text-align: center;
-    color: #fff;
-    border-radius: 10px;
-    background-color: #de2d2d;
+    color: #de2d2d;
+    z-index: 200;
     &:hover {
-      background-color: #ff0000;
+      color: #ff0000;
+      font-size: 14px;
+      font-weight: bold;
     }
   }
 }

@@ -1,10 +1,13 @@
-a, a:hover{
-  text-decoration: none;
-  color: black;
-}
-
 nav {
   font-family: monospace;
+  font-size: 16px;
+  padding: 0 !important;
+  .navList {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 6px -6px #000;
+  }
 }
 
 ul {
@@ -12,6 +15,15 @@ ul {
   list-style: none;
   margin: 0;
   padding-left: 0;
+}
+
+.headerDropdown {
+  position: relative;
+}
+
+.headerDropdownMenu {
+  margin: 0;
+  width: 100%;
 }
 
 li {
@@ -23,36 +35,34 @@ li {
   position: relative;
   text-decoration: none;
   transition-duration: 0.5s;
-}
-
-li:hover,
-li:focus-within {
-  background: aliceblue;
-  cursor: pointer;
-}
-
-li:focus-within a {
-  outline: none;
+  &:hover {
+    color: #007bff;
+    background: #F5FAFF;
+    cursor: pointer;
+  }
+  a {
+    color: black;
+    &:hover {
+      text-decoration: none;
+      color: #007bff;
+    }
+  }
 }
 
 ul li ul {
   visibility: hidden;
   opacity: 0;
-  min-width: 5rem;
-  position: absolute;
   transition: all 0.5s ease;
-  margin-top: 1rem;
-  left: 0;
-  display: none;
+  margin-top: -1px !important;
+  width: 100%;
 }
 
 ul li:hover > ul,
-ul li:focus-within > ul,
-ul li ul:hover,
-ul li ul:focus {
+ul li ul:hover {
   visibility: visible;
   opacity: 1;
   display: block;
+  position: absolute;
 }
 
 ul li ul li {

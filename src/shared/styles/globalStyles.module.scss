@@ -13,4 +13,8 @@
   &:focus {
     outline: none;
   }
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Meal from 'shared/interfaces/Meal.interface';
 import Drawer from 'shared/hoc/Drawer';
-import classes from 'shared/styles/globalStyles.module.scss';
+import globalStyles from 'shared/styles/globalStyles.module.scss';
 import styles from './styles.module.scss';
 import useMealComponentLogic from './useMealComponenLogict';
 import ProductsList from '../../Products';
@@ -46,7 +46,7 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
           </div>
           <button
             type="button"
-            className={`${classes.buttonDefault} ${styles.removeButton}`}
+            className={`${globalStyles.buttonDefault} ${styles.removeButton}`}
             onClick={() =>
               onRemoveIngredient({
                 name: meal.mealName,
@@ -61,11 +61,15 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
       {isSidebarOpened ? (
         <Drawer close={onCloseDrawerManually}>
           {selectedProduct ? (
-            <div>
-              <p>{selectedProduct.name}</p>
-              <input type="number" className={styles.filter} onChange={onIngredientAmountChange} /> g
+            <div className={styles.addProductAmountCard}>
+              <p className={styles.sidebarTitle}>{selectedProduct.name}</p>
+              <div className={styles.amountInput}>
+                <input type="number" onChange={onIngredientAmountChange} />
+                <span>g</span>
+              </div>
               <button
                 type="button"
+                className={globalStyles.buttonDefault}
                 onClick={() =>
                   onAddIngredient({
                     name: meal.mealName,
@@ -78,7 +82,7 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
             </div>
           ) : (
             <div>
-              <p>Select product: </p>
+              <p className={styles.sidebarTitle}>Select product: </p>
               <ProductsList isItListForSelection />
             </div>
           )}
@@ -86,7 +90,7 @@ const MealComponent: FunctionComponent<Props> = (meal) => {
       ) : (
         <button
           type="button"
-          className={`${classes.buttonDefault} ${styles.addButton}`}
+          className={`${globalStyles.buttonDefault} ${styles.addButton}`}
           onClick={() => setIsSidebarOpened(true)}
         >
           +

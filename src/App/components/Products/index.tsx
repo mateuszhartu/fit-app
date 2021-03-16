@@ -24,7 +24,11 @@ const ProductsList: FunctionComponent<Props> = (props) => {
           aria-hidden="true"
           aria-label="select Product"
         >
-          <Product product={product} canRemoveProduct={!props.isItListForSelection} />
+          <Product
+            product={product}
+            isItListForSelection={props.isItListForSelection}
+            canRemoveProduct={!props.isItListForSelection}
+          />
         </div>
       ))}
     </div>
@@ -34,7 +38,7 @@ const ProductsList: FunctionComponent<Props> = (props) => {
     <div className={styles.container}>
       <div className={`row justify-content-md-center ${styles.mainContent}`}>
         <div className="col-md-8">
-          <input className={styles.filter} onChange={onFilterTextChange} />
+          <input className={styles.filter} placeholder="Search" onChange={onFilterTextChange} />
           {productsList}
         </div>
         {isSidebarOpened && (
